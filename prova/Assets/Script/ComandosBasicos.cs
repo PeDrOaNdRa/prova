@@ -14,10 +14,13 @@ public class ComandosBasicos : MonoBehaviour
     public Transform posicaoSensor; //Posição onde o sensor será posicionado
     public LayerMask layerChao; //Camada de interação*
 
+    private SpriteRenderer sprite;
+
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -36,7 +39,21 @@ public class ComandosBasicos : MonoBehaviour
             rbPlayer.AddForce(new Vector2(0, alturaPulo));
         }
 
-        anim.SetInteger("Jump", (int)alturaPulo);
+        anim.SetBool("jump", sensor);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            anim.SetTrigger("attack");
+        }
+
+        if (movimentoX > 0)
+        {
+            sprite.flipX = false; //aperta a seta para a direita o boneco vai para a direita
+        }else if(movimentoX < 0)
+        {
+            sprite.flipX = true;//aperta a seta para a esquerda o boneco vai para a esquerda
+        }
+       
     }
 
     private void FixedUpdate()
