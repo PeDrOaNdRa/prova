@@ -16,11 +16,18 @@ public class ComandosBasicos : MonoBehaviour
 
     private SpriteRenderer sprite;
 
+    public GameObject projetil;//Criar uma variável para instanciar o objeto na cena
+
+    public Transform localDsiparo;
+
+    private Transform flip;
+
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
@@ -44,6 +51,14 @@ public class ComandosBasicos : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             anim.SetTrigger("attack");
+
+            GameObject temp = Instantiate(projetil);
+
+            temp.transform.position = localDsiparo.transform.position;
+
+            temp.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(8, 0);
+
+            Destroy(temp.gameObject, 3);
         }
 
         if (movimentoX > 0)
