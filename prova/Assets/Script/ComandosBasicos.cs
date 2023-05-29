@@ -104,6 +104,8 @@ public class ComandosBasicos : MonoBehaviour
         VelocidadeTiro *= -1;
 
     }
+
+    
 }
 
 
