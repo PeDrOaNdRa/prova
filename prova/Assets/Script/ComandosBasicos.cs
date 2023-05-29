@@ -22,6 +22,10 @@ public class ComandosBasicos : MonoBehaviour
 
     private Transform flip;
 
+    public bool VerificarDirec;
+
+    public float VelocidadeTiro;
+
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody2D>();
@@ -56,17 +60,27 @@ public class ComandosBasicos : MonoBehaviour
 
             temp.transform.position = localDsiparo.transform.position;
 
-            temp.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(8, 0);
+            temp.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(VelocidadeTiro, 0);
 
             Destroy(temp.gameObject, 3);
         }
 
-        if (movimentoX > 0)
+        if (movimentoX > 0  && VerificarDirec== true)
         {
-            sprite.flipX = false; //aperta a seta para a direita o boneco vai para a direita
-        }else if(movimentoX < 0)
+
+
+            VirarPersonagem();
+            //aperta a seta para a direita o boneco vai para a direita
+
+
+        }
+        else if(movimentoX < 0 && VerificarDirec == false)
         {
-            sprite.flipX = true;//aperta a seta para a esquerda o boneco vai para a esquerda
+
+            VirarPersonagem();
+            //aperta a seta para a esquerda o boneco vai para a esquerda
+
+
         }
        
     }
@@ -77,4 +91,19 @@ public class ComandosBasicos : MonoBehaviour
         sensor = Physics2D.OverlapCircle(posicaoSensor.position, 0.1f, layerChao);
 
     }
+
+    public void VirarPersonagem()
+    {
+
+        VerificarDirec = !VerificarDirec;
+
+        float x = transform.localScale.x * -1;
+
+        transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
+
+        VelocidadeTiro *= -1;
+
+    }
 }
+
+
