@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ComandosBasicos : MonoBehaviour
 {
@@ -26,11 +28,27 @@ public class ComandosBasicos : MonoBehaviour
 
     public float VelocidadeTiro;
 
+    public TextMeshProUGUI textoCoin,textoVida;
+
+    private int quantidadeMoeda;
+
+    public float vida;
+
+    public Image imagemVida;
+
+    public float vidaInicial;
+
+    public float porcetagemVida;
+
+    
+
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+
+        vida= vidaInicial;
         
     }
 
@@ -62,7 +80,7 @@ public class ComandosBasicos : MonoBehaviour
 
             temp.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(VelocidadeTiro, 0);
 
-            Destroy(temp.gameObject, 3);
+            Destroy(temp.gameObject, 2);
         }
 
         if (movimentoX > 0  && VerificarDirec== true)
@@ -82,7 +100,11 @@ public class ComandosBasicos : MonoBehaviour
 
 
         }
-       
+
+        porcetagemVida = vida / vidaInicial;
+
+        imagemVida.fillAmount = porcetagemVida;
+
     }
 
     private void FixedUpdate()
@@ -105,7 +127,44 @@ public class ComandosBasicos : MonoBehaviour
 
     }
 
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "coin")
+        {
+            quantidadeMoeda += 1;
+
+            textoCoin.text = quantidadeMoeda.ToString();
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "scoin")
+        {
+            quantidadeMoeda += 5;
+
+            textoCoin.text = quantidadeMoeda.ToString();
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "mato")
+        {
+            
+            vida -= 1;
+             if(vida<= 0)
+            {
+                anim.SetTrigger("dying");
+                Destroy(gameObject);
+            }
+           
+        }
+
+        if (collision.gameObject.tag == "pocao")
+        {
+
+            vida += 1;
+           
+
+        }
+    }
 }
 
 
