@@ -32,13 +32,9 @@ public class ComandosBasicos : MonoBehaviour
 
     private int quantidadeMoeda;
 
-    public float vida;
+    public float vida,vidaInicial,porcetagemVida;
 
     public Image imagemVida;
-
-    public float vidaInicial;
-
-    public float porcetagemVida;
 
     
 
@@ -83,6 +79,7 @@ public class ComandosBasicos : MonoBehaviour
             Destroy(temp.gameObject, 2);
         }
 
+
         if (movimentoX > 0  && VerificarDirec== true)
         {
 
@@ -99,6 +96,12 @@ public class ComandosBasicos : MonoBehaviour
             //aperta a seta para a esquerda o boneco vai para a esquerda
 
 
+        }
+
+        if (vida <= 0)
+        {
+            anim.SetTrigger("dying");
+            
         }
 
         porcetagemVida = vida / vidaInicial;
@@ -149,19 +152,14 @@ public class ComandosBasicos : MonoBehaviour
         {
             
             vida -= 1;
-             if(vida<= 0)
-            {
-                anim.SetTrigger("dying");
-                Destroy(gameObject);
-            }
            
         }
 
-        if (collision.gameObject.tag == "pocao")
+        if (collision.gameObject.tag == "pocao" && vida < 10)
         {
 
             vida += 1;
-           
+            Destroy(collision.gameObject);
 
         }
     }
