@@ -83,10 +83,8 @@ public class ComandosBasicos : MonoBehaviour
         if (movimentoX > 0  && VerificarDirec== true)
         {
 
-
             VirarPersonagem();
             //aperta a seta para a direita o boneco vai para a direita
-
 
         }
         else if(movimentoX < 0 && VerificarDirec == false)
@@ -95,12 +93,16 @@ public class ComandosBasicos : MonoBehaviour
             VirarPersonagem();
             //aperta a seta para a esquerda o boneco vai para a esquerda
 
-
         }
 
         if (vida <= 0)
         {
-            anim.SetTrigger("dying");
+            rbPlayer.GetComponent<Animator>().SetTrigger("dying");
+            rbPlayer.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            rbPlayer.GetComponent<CapsuleCollider2D>().enabled = false;
+            rbPlayer.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            rbPlayer.GetComponent<Transform>().transform.localScale = new Vector3 (transform.localScale.x,1, 1);
+                       
             
         }
 
