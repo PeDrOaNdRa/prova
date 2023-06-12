@@ -16,13 +16,9 @@ public class ComandosBasicos : MonoBehaviour
     public Transform posicaoSensor; //Posição onde o sensor será posicionado
     public LayerMask layerChao; //Camada de interação*
 
-    private SpriteRenderer sprite;
-
     public GameObject projetil;//Criar uma variável para instanciar o objeto na cena
 
     public Transform localDsiparo;
-
-    private Transform flip;
 
     public bool VerificarDirec;
 
@@ -42,7 +38,7 @@ public class ComandosBasicos : MonoBehaviour
     {
         rbPlayer = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
+       
 
         vida= vidaInicial;
         
